@@ -5,6 +5,7 @@
 
 package controller;
 
+import dal.BillDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,17 +15,18 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Cart;
-import model.Item;
 import model.Product;
+import model.User;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="Shop", urlPatterns={"/shop"})
-public class Shop extends HttpServlet {
+@WebServlet(name="Checkout", urlPatterns={"/checkout"})
+public class Checkout extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,10 +43,10 @@ public class Shop extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Shop</title>");  
+            out.println("<title>Servlet Checkout</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Shop at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet Checkout at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,26 +63,7 @@ public class Shop extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        ProductDAO d= new ProductDAO();
-        List<Product> list=d.getAllProduct();
-        Cookie[] arr=request.getCookies();
-        String txt="";
-        if(arr!=null) {
-            for(Cookie o:arr) {
-                if(o.getName().equals("cart")) {
-                    txt+=o.getValue();
-                }
-            }
-        }
-        Cart cart= new Cart(txt, list);
-        List<Item> listItem=cart.getItems();
-        int n;
-        if(listItem != null) {
-            n=listItem.size();
-        }
-        else n=0;
-        request.setAttribute("size", n);
-        request.setAttribute("data", list);
+        processRequest(request, response);
     } 
 
     /** 
@@ -93,7 +76,36 @@ public class Shop extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        ProductDAO d= new ProductDAO();
+        BillDAO b= new BillDAO();
+        List<Product> list=d.getAllProduct();
+        Cookie[] arr=request.getCookies();
+        String txt="";
+        if(arr!=null) {
+            for(Cookie o:arr) {
+                if(o.getName().equals("cart")) {
+                    txt+=o.getValue();
+                    o.setMaxAge(0);
+                    response.addCookie(o);
+                }
+            }
+        }
+        Cart cart= new Cart(txt,list);
+        HttpSession session=request.getSession();
+        User a=(User)session.getAttribute("acc");
+        if(a==null) {
+            response.sendRedirect("login.jsp");
+        }
+        else {
+            String address= request.getParameter("address");
+            String phone= request.getParameter("phone");
+            b.addBill(a, cart, address, phone);
+            Cookie c=new Cookie("cart","");
+            c.setMaxAge(0);
+            response.addCookie(c);
+            request.getRequestDispatcher("homecontrol").forward(request, response);
+            
+        }
     }
 
     /** 

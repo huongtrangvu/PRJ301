@@ -5,8 +5,6 @@
 
 package controller;
 
-
-import dal.CategoryDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,16 +16,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import model.Cart;
-import model.Category;
-import model.Item;
 import model.Product;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="HomeControl", urlPatterns={"/homecontrol"})
-public class HomeControl extends HttpServlet {
+@WebServlet(name="ShoppingCart", urlPatterns={"/shoppingcart"})
+public class ShoppingCart extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,52 +35,18 @@ public class HomeControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        CategoryDAO dao= new CategoryDAO();
-        ProductDAO d= new ProductDAO();
-        List<Product> listP= d.getAllProduct();
-        List<Category> listC=dao.getCategory();
-        int size= listP.size();
-        int num=(size%8==0?(size/8):((size/8))+1);
-        String indexPage=request.getParameter("index");
-        if(indexPage==null) {
-            indexPage="1";
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ShoppingCart</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ShoppingCart at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        
-        int index=Integer.parseInt(indexPage);
-        List<Product> list= d.getListByPage(index);
-      
-        
-        
-        
-        // =================================================
-       
-        
-        Cookie[] arr=request.getCookies();
-        String txt="";
-        if(arr!=null) {
-            for(Cookie o:arr) {
-                if(o.getName().equals("cart")) {
-                    txt+=o.getValue();
-                }
-            }
-        }
-        Cart cart= new Cart(txt, list);
-        List<Item> listItem=cart.getItems();
-        int n;
-        if(listItem != null) {
-            n=listItem.size();
-        }
-        else n=0;
-        request.setAttribute("size", n);
-        
-        request.setAttribute("listP", list);
-        request.setAttribute("tag", index);
-
-        request.setAttribute("num", num);
-        request.setAttribute("listC", listC);
-        
-        //========================================================
-        request.getRequestDispatcher("homenew.jsp").forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -98,7 +60,20 @@ public class HomeControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        ProductDAO d= new ProductDAO();
+        List<Product> list=d.getAllProduct();
+        Cookie[] arr=request.getCookies();
+        String txt="";
+        if(arr!=null) {
+            for(Cookie o:arr) {
+                if(o.getName().equals("cart")) {
+                    txt+=o.getValue();
+                }
+            }
+        }
+        Cart cart= new Cart(txt, list);
+        request.setAttribute("cart", cart);
+        request.getRequestDispatcher("shopping_cart.jsp").forward(request, response);
     } 
 
     /** 

@@ -103,7 +103,7 @@
                             </h4>
 
                             <span class="mtext-106 cl2">
-                                ${detail.product_price}$
+                                ${detail.product_price} VND
                             </span>
 
                             <p class="stext-102 cl3 p-t-23">
@@ -111,7 +111,7 @@
                             </p>
 
                             <!--  -->
-                            <form name="f" class="p-t-33" action="updatecart" method="post">
+                            <form name="f" class="p-t-33" action="buy" method="post">
                             
                                 <div class="flex-w flex-r-m p-b-10">
                                     <div class="size-203 flex-c-m respon6">
@@ -149,10 +149,10 @@
                                         
                                         <input type="hidden" value="${detail.product_id}" name="productid">
 
-<!--                                        <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                        <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
                                             Add to cart
-                                        </button>-->
-<input type="button" onclick="buy('${detail.product_id}')" value="Buy item"/>
+                                        </button>
+<!--<input type="button" onclick="buy('${detail.product_id}')" value="Buy item"/>-->
                                     </div>
                                 </div>	
                             
