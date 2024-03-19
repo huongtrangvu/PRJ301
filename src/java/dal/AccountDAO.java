@@ -22,7 +22,7 @@ public class AccountDAO extends DBContext{
             st.setString(2, pass);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return new User(rs.getInt(1), rs.getString(2), email, pass, rs.getString(5));
+                return new User(rs.getInt(1), rs.getString(2), email, pass, rs.getString(5),rs.getString(6));
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -38,7 +38,7 @@ public class AccountDAO extends DBContext{
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return new User(rs.getInt(1), rs.getString(2), email, rs.getString(4), rs.getString(5));
+                return new User(rs.getInt(1), rs.getString(2), email, rs.getString(4), rs.getString(5), rs.getString(6));
             }
         } catch (SQLException e) {
             System.out.println(e);
