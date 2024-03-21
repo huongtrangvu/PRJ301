@@ -45,9 +45,9 @@
               <table class="table table-hover table-bordered" id="sampleTable">
                 <thead>
                   <tr>
-                    <th>Images</th>
+                   
                     <th>Product ID</th>
-                    <th>Product Name</th>
+                   
                     <th>Size</th>
                     <th>Quantity</th>
                     <th>Price</th>
@@ -57,9 +57,9 @@
                 <c:forEach items="${listBD}" var="o">
                     
                   <tr>
-                    <td></td>
+                    
                     <td>${o.product_id}</td>
-                    <td></td>
+                   
                     <td>${o.size}</td>
                     <td>${o.quantity}</td>
                     <td>${o.price}</td>
