@@ -5,7 +5,6 @@
 
 package controller;
 
-import dal.CategoryDAO;
 import dal.ProductDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,15 +13,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Category;
+import model.Product;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="AddProduct", urlPatterns={"/addproduct"})
-public class AddProduct extends HttpServlet {
+@WebServlet(name="EditProduct", urlPatterns={"/editProduct"})
+public class EditProduct extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +32,15 @@ public class AddProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         CategoryDAO d= new CategoryDAO();
-        List<Category> listC=d.getCategory();
-        request.setAttribute("listC", listC);
-        request.getRequestDispatcher("admin/add_san_pham.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        String id=request.getParameter("productid");
+        
+        ProductDAO d= new ProductDAO();
+        Product p=d.getProductById(Integer.parseInt(id));
+       
+        
+        request.setAttribute("detail", p);
+        request.getRequestDispatcher("admin/manage_product.jsp").forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,18 +67,7 @@ public class AddProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        
-        String name=request.getParameter("name");
-        String image=request.getParameter("image");
-        String price=request.getParameter("price");
-        String mota=request.getParameter("mota");
-        String category=request.getParameter("category");
-        String quantity=request.getParameter("quantity");
-        ProductDAO d= new ProductDAO();
-        d.insertProduct( category, name, price, mota, quantity, image);
-        response.sendRedirect("manage_product");
+        processRequest(request, response);
     }
 
     /** 

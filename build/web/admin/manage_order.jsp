@@ -83,7 +83,7 @@
                                             <th>Total money</th>
                                             <th>Address</th>
                                             <th>Phone number</th>
-                                            <th>Status</th>
+
                                             <th>Function</th>
                                         </tr>
                                     </thead>
@@ -97,7 +97,7 @@
                                             <td>${o.total}</td>
                                             <td>${o.address}</td>
                                             <td>${o.phone}</td>
-                                            <td><span class="badge bg-danger">Đã hủy</span></td>
+                                       
                                             <td><a href="detail_order?bid=${o.bill_id}">View</a></td>
                                         </tr>
                                     </c:forEach>

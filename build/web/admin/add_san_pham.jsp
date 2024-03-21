@@ -154,24 +154,15 @@
           <h3 class="tile-title">Tạo mới sản phẩm</h3>
           <div class="tile-body">
             <div class="row element-button">
-              <div class="col-sm-2">
-                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter"><i
-                    class="fas fa-folder-plus"></i> Thêm nhà cung cấp</a>
-              </div>
+              
               <div class="col-sm-2">
                 <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc"><i
                     class="fas fa-folder-plus"></i> Thêm danh mục</a>
               </div>
-              <div class="col-sm-2">
-                <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#addtinhtrang"><i
-                    class="fas fa-folder-plus"></i> Thêm tình trạng</a>
-              </div>
+              
             </div>
             <form class="row" action="addproduct" method="post">
-              <div class="form-group col-md-3">
-                <label class="control-label">Mã sản phẩm </label>
-                <input name="id" class="form-control" type="text" placeholder="">
-              </div>
+              
               <div class="form-group col-md-3">
                 <label class="control-label">Tên sản phẩm</label>
                 <input name="name" class="form-control" type="text">
@@ -182,14 +173,8 @@
                 <label class="control-label">Số lượng</label>
                 <input name="quantity" class="form-control" type="number">
               </div>
-              <div class="form-group col-md-3 ">
-                <label for="exampleSelect1" class="control-label">Tình trạng</label>
-                <select class="form-control" id="exampleSelect1">
-                  <option>-- Chọn tình trạng --</option>
-                  <option>Còn hàng</option>
-                  <option>Hết hàng</option>
-                </select>
-              </div>
+             
+                
               <div class="form-group col-md-3">
                 <label for="exampleSelect1" class="control-label">Danh mục</label>
                 <select name="category" class="form-control">
@@ -203,10 +188,7 @@
                 <label class="control-label">Giá bán</label>
                 <input name="price" class="form-control" type="text">
               </div>
-              <div class="form-group col-md-3">
-                <label class="control-label">Giá vốn</label>
-                <input class="form-control" type="text">
-              </div>
+              
               <div class="form-group col-md-3">
                 <label class="control-label">Ảnh sản phẩm</label>
                 <input class="form-control" type="text" name="image"/>
@@ -218,7 +200,7 @@
                 <script>CKEDITOR.replace('mota');</script>
               </div>
                 <button class="btn btn-save">Lưu lại</button>
-          <a class="btn btn-cancel" href="table-data-product.html">Hủy bỏ</a>
+          <a class="btn btn-cancel" href="manage_product">Hủy bỏ</a>
             </form>
 
           </div>

@@ -128,16 +128,16 @@ public class ProductDAO extends DBContext{
     
     public void insertProduct( String category, String name, String price,
             String describe, String quantity, String image) {
-        String sql = "insert into product values (?,?,?,?,?,?)";
+        String sql = "insert into product(category_id, product_name, product_price, product_describe, quantity, img) values (?,?,?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             
-            st.setString(2, category);
-            st.setString(3, name);
-            st.setString(4, price);
-            st.setString(5, describe);
-            st.setString(6, quantity);
-            st.setString(7, image);
+            st.setString(1, category);
+            st.setString(2, name);
+            st.setString(3, price);
+            st.setString(4, describe);
+            st.setString(5, quantity);
+            st.setString(6, image);
             st.executeUpdate();
         } catch (SQLException e) {
 

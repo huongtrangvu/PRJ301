@@ -105,11 +105,11 @@
                                                    href="delete?pid=${o.product_id}"><i class="fas fa-trash-alt"></i>
                                                 </a>
 
-                                                <form action="manage_product" method="post"> 
-                                                    <input name="pid" value="${o.product_id}" type="hidden"/>
-                                                    <button type="submit"> <a class="btn btn-primary btn-sm edit"  id="show-emp" data-toggle="modal"
+                                               
+                                                   
+                                                <a href="editProduct?productid=${o.product_id}" class="btn btn-primary btn-sm edit"  id="show-emp" data-toggle="modal"
                                                                                                 data-target="#ModalUP"><i class="fas fa-edit"></i>
-                                                        </a></button></form>
+                                                        </a>
 
                                             </td>
                                         </tr>
@@ -181,10 +181,8 @@
                             </div>
                         </div>
                         <BR>
-                        <a href="#" style="    float: right;
-                           font-weight: 600;
-                           color: #ea0000;">Chỉnh sửa sản phẩm nâng cao</a>
-                        <BR>
+                        
+                        
                         <BR>
                         <button class="btn btn-save" type="button">Lưu lại</button>
                         <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
