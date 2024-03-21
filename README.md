@@ -10,7 +10,7 @@ A course project shopping website using Java-Servlet, SQL Server database.
 - User can update account, add items to cart and checkout.
 - Admin can manage all items.
 ## Technologies used
-- Backend: Spring Boot, Hibernate/Spring Data JPA, Restful API.
+- Backend: Java-Servlet
 - Frontend: Bootstrap.
 - Database: SQL Server.
 ## Notes
